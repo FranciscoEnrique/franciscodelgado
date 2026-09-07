@@ -4,50 +4,57 @@
 
 const contact = {
   email: "enriquedelgadoelizondo@gmail.com",
+  // Quítalo si no quieres el teléfono público:
+  tel: "+52 81 2936 1064",
   // Cambia por tu perfil real:
   linkedin: "https://www.linkedin.com/in/francisco-delgado",
-  // Coloca el archivo en public/ con este nombre (o ajusta la ruta):
-  cv: "/cv-francisco-delgado.pdf",
+  // Coloca el PDF en public/ con este nombre (o ajusta la ruta):
+  cv: "/FranciscoDelgado_CV.pdf",
 };
 
-type Link = { label: string; href: string };
-type Project = {
-  name: string;
-  org?: string;
-  status: string;
-  state: "done" | "planning";
-  body: string;
-  note?: string;
-  links?: Link[];
-};
+type Job = { role: string; org: string; dates?: string; body: string };
 
-const projects: Project[] = [
+const experience: Job[] = [
   {
-    name: "Sistema de control de acceso vehicular RFID",
+    role: "Programador Full Stack Jr.",
+    org: "Fiscalía General de Justicia de Nuevo León",
+    dates: "feb 2026 – hoy",
+    body: "Aplicaciones internas en C#, .NET y SQL Server. Plataforma de gestión de proyectos, evidencias y control de calidad, con notificaciones en tiempo real (SignalR). Diseño y optimización de procedimientos y consultas SQL; pruebas y liberaciones.",
+  },
+  {
+    role: "Analista Programador (práctica profesional)",
+    org: "Panasonic Energy México",
+    dates: "abr 2024 – ene 2026",
+    body: "Digitalización y automatización de procesos para Recursos Humanos, Calidad, Producción, Finanzas y Laboratorio Eléctrico. Bases de datos en SQL Server, aplicaciones en .NET, automatización con Power Apps y Power Automate, y documentación técnica (BPMN, diccionarios de datos, casos de prueba).",
+  },
+  {
+    role: "Auxiliar Administrativo de Calidad",
     org: "FIME · UANL",
-    status: "Software terminado · Despliegue pendiente",
-    state: "done",
-    body: "Control de entradas y salidas de vehículos por tarjeta RFID para un estacionamiento universitario. Diseñé y desarrollé el software completo: API en .NET, un gateway offline en SQLite que sincroniza al recuperar conexión, dashboard en React y base de datos en SQL Server con su diagrama entidad-relación.",
-    note: "El desarrollo de software está terminado. La instalación física y la integración con los lectores RFID quedan pendientes.",
-    // Añade el repo (aunque sea privado con README público) y/o el PDF de arquitectura:
-    links: [],
+    dates: "feb 2023 – mar 2024",
+    body: "Seguimiento de procesos bajo ISO 9001 e ISO 21001, participación como auditor interno y una herramienta web de apoyo al área.",
   },
   {
-    name: "Visor web DICOM",
-    status: "En planeación",
-    state: "planning",
-    body: "Ver estudios DICOM desde el navegador, sin instalar un visor propietario en cada máquina. Pensado para consultar de forma rápida las imágenes de un equipo portátil de rayos X.",
-  },
-  {
-    name: "Flujo mini-PACS",
-    status: "En planeación",
-    state: "planning",
-    body: "Recepción y organización de los estudios que produce un equipo portátil de rayos X: nombrarlos, agruparlos por paciente y dejarlos listos para revisión.",
+    role: "Técnico Radiólogo",
+    org: "Clínica y Laboratorio Teresita",
+    body: "Radiografía convencional y apoyo en mamografía. Manejo del flujo de captura, procesamiento y entrega de los estudios digitales a pacientes y médicos.",
   },
 ];
 
+type Link = { label: string; href: string };
+
+const rfid = {
+  name: "Sistema de control de acceso vehicular RFID",
+  org: "FIME · UANL",
+  status: "Software concluido · Integración con hardware pendiente",
+  body: "Control de entradas y salidas por tarjeta RFID para un estacionamiento institucional. Levanté los requerimientos, diseñé una arquitectura híbrida offline/online para que siguiera operando sin conexión, y desarrollé todo el software: API REST en .NET, un servicio local (Gateway con .NET Worker Service y SQLite) que sincroniza al recuperar la red, un dashboard de administración en React y la base de datos en SQL Server con diagrama entidad-relación, diccionario de datos y permisos por rol. Documentado con casos de prueba, diagramas de arquitectura y manual funcional.",
+  note: "El desarrollo de software está concluido. La integración con el hardware físico (lector RFID y pluma vehicular) quedó pendiente de despliegue.",
+  // Añade el repo (aunque sea privado con README público) y/o el PDF de arquitectura:
+  links: [] as Link[],
+};
+
 const stack = {
-  desarrollo: ["C#", ".NET", "SQL Server", "React", "JavaScript", "Git"],
+  desarrollo: ["C#", ".NET", "ASP.NET", "JavaScript", "React", "SQL Server"],
+  proceso: ["Git", "Docker", "Linux", "BPMN", "AS-IS / TO-BE", "casos de prueba"],
   salud: ["HIS", "RIS", "LIS", "PACS", "DICOM", "HL7"],
 };
 
@@ -60,17 +67,17 @@ const year = new Date().getFullYear();
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <title>Francisco Delgado — Desarrollo de software · Health IT</title>
+    <title>Francisco Delgado — Desarrollo de software · Sistemas de información en salud</title>
     <meta
       name="description"
-      content="Francisco Delgado: desarrollador de software (.NET/C#/SQL Server) con formación clínica en radiología. Enfoque en Health IT e imagenología médica."
+      content="Francisco Delgado, ingeniero en Tecnología de Software (.NET, SQL Server) con formación técnica en radiología y experiencia hospitalaria. Se mueve hacia Health IT: sistemas de información clínica e imagenología."
     />
     <link rel="canonical" href="https://franciscodelgado.dev/" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Francisco Delgado — Desarrollo de software · Health IT" />
+    <meta property="og:title" content="Francisco Delgado — Desarrollo de software · Sistemas de información en salud" />
     <meta
       property="og:description"
-      content="Desarrollador de software con formación clínica en radiología. Enfoque en Health IT e imagenología médica."
+      content="Ingeniero en Tecnología de Software con formación técnica en radiología. Desarrollo empresarial .NET/SQL Server y flujo clínico de imágenes."
     />
     <meta property="og:url" content="https://franciscodelgado.dev/" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -86,63 +93,93 @@ const year = new Date().getFullYear();
         <p class="hero__meta">Monterrey, Nuevo León</p>
         <h1>Francisco Delgado</h1>
         <p class="hero__lede">
-          Desarrollador de software con formación clínica en radiología.
+          Desarrollador de software con formación técnica en radiología.
         </p>
         <p class="hero__body">
-          Construyo software para el flujo de imagenología médica: visores DICOM
-          en el navegador, integraciones tipo mini-PACS y herramientas para
-          equipo portátil de rayos X. Busco un rol en Health IT donde el
-          desarrollo y la práctica clínica se crucen.
+          Desarrollo aplicaciones internas en .NET y SQL Server en la Fiscalía
+          General de Justicia de Nuevo León; antes, en Panasonic Energy México.
+          Antes de programar trabajé como técnico radiólogo. Con esas dos bases
+          me estoy moviendo hacia Health IT: sistemas de información clínica e
+          imagenología.
         </p>
       </header>
 
       <section aria-labelledby="sobre-mi">
         <h2 id="sobre-mi">Sobre mí</h2>
         <p>
-          Soy ingeniero en Tecnología de Software por la FIME-UANL. He trabajado
-          en desarrollo .NET/C# y SQL Server en entornos empresariales: sistemas
-          internos en Panasonic Energy México y en la Fiscalía General de
-          Justicia de Nuevo León.
+          Soy ingeniero en Tecnología de Software por la FIME-UANL. Trabajo en
+          desarrollo full stack —C#, .NET, JavaScript, SQL Server— construyendo y
+          manteniendo aplicaciones de uso interno: hoy una plataforma de gestión
+          de proyectos y control de calidad en la Fiscalía; antes, soluciones
+          para Recursos Humanos, Calidad, Producción y Finanzas en Panasonic
+          Energy México.
         </p>
         <p>
-          Antes de programar trabajé en un hospital. Tengo formación técnica en
-          radiología y experiencia de piso: rayos X, apoyo en mamografía y
-          ultrasonido. Conozco el recorrido de un estudio desde que el paciente
-          entra hasta que la imagen llega al radiólogo.
+          Buena parte de ese trabajo no es solo código: es levantar
+          requerimientos con las áreas operativas, documentar el proceso
+          (AS-IS/TO-BE, BPMN) y probar antes de liberar. Traduzco lo que necesita
+          quien va a usar el sistema.
         </p>
         <p>
-          Health IT es donde esas dos cosas dejan de estar separadas. Me
-          interesan los sistemas de información clínica y, en concreto, la
-          imagenología: cómo se capturan, se mueven y se leen los estudios. No es
-          un área nueva que estoy explorando; es el trabajo que ya hacía, visto
-          desde el otro lado.
+          Antes de programar tuve formación técnica en radiología y trabajé en
+          una clínica: radiografía convencional, apoyo en mamografía y el manejo
+          del flujo de captura, procesamiento y entrega de los estudios
+          digitales. Health IT junta esas dos experiencias —el desarrollo
+          empresarial que ya hago y el flujo clínico que ya viví— y es la
+          dirección hacia la que estoy llevando mi trabajo.
         </p>
       </section>
 
-      <section aria-labelledby="proyectos">
-        <h2 id="proyectos">Proyectos</h2>
-        <ol class="projects">
+      <section aria-labelledby="experiencia">
+        <h2 id="experiencia">Experiencia</h2>
+        <ol class="exp">
           {
-            projects.map((p) => (
-              <li class="project">
-                <h3 class="project__name">
-                  {p.name}
-                  {p.org && <span class="project__org"> — {p.org}</span>}
-                </h3>
-                <p class={`status status--${p.state}`}>{p.status}</p>
-                <p class="project__body">{p.body}</p>
-                {p.note && <p class="project__note">{p.note}</p>}
-                {p.links && p.links.length > 0 && (
-                  <p class="project__links">
-                    {p.links.map((l) => (
-                      <a href={l.href}>{l.label}</a>
-                    ))}
-                  </p>
-                )}
+            experience.map((j) => (
+              <li class="exp__item">
+                <div class="exp__head">
+                  <h3 class="exp__role">
+                    {j.role}
+                    <span class="exp__org"> — {j.org}</span>
+                  </h3>
+                  {j.dates && <span class="exp__dates">{j.dates}</span>}
+                </div>
+                <p class="exp__body">{j.body}</p>
               </li>
             ))
           }
         </ol>
+      </section>
+
+      <section aria-labelledby="proyectos">
+        <h2 id="proyectos">Proyectos</h2>
+        <div class="project">
+          <h3 class="project__name">
+            {rfid.name}
+            <span class="project__org"> — {rfid.org}</span>
+          </h3>
+          <p class="status status--done">{rfid.status}</p>
+          <p class="project__body">{rfid.body}</p>
+          <p class="project__note">{rfid.note}</p>
+          {
+            rfid.links.length > 0 && (
+              <p class="project__links">
+                {rfid.links.map((l) => (
+                  <a href={l.href}>{l.label}</a>
+                ))}
+              </p>
+            )
+          }
+        </div>
+        <div class="project">
+          <h3 class="project__name">Imagenología web</h3>
+          <p class="status status--planning">En diseño</p>
+          <p class="project__body">
+            Hacia donde apunto: un visor de estudios DICOM que funcione desde el
+            navegador, sin instalar software propietario, y un flujo ligero para
+            recibir y organizar los estudios de un equipo portátil de rayos X.
+            Diseño en curso, sin implementación todavía.
+          </p>
+        </div>
       </section>
 
       <section aria-labelledby="stack">
@@ -154,12 +191,19 @@ const year = new Date().getFullYear();
           </ul>
         </div>
         <div class="stack">
+          <p class="stack__label">Herramientas y proceso</p>
+          <ul class="tags">
+            {stack.proceso.map((t) => <li>{t}</li>)}
+          </ul>
+        </div>
+        <div class="stack">
           <p class="stack__label">Sistemas de información en salud</p>
           <ul class="tags">
             {stack.salud.map((t) => <li>{t}</li>)}
           </ul>
           <p class="stack__caveat">
-            Conocimiento de fundamentos. Todavía no implementación en producción.
+            Fundamentos, más el flujo clínico de imágenes vivido como técnico
+            radiólogo. Sin implementación en producción todavía.
           </p>
         </div>
       </section>
@@ -171,6 +215,14 @@ const year = new Date().getFullYear();
             <span class="contact__key">Email</span>
             <a href={`mailto:${contact.email}`}>{contact.email}</a>
           </li>
+          {
+            contact.tel && (
+              <li>
+                <span class="contact__key">Teléfono</span>
+                <a href={`tel:${contact.tel.replace(/\s+/g, "")}`}>{contact.tel}</a>
+              </li>
+            )
+          }
           <li>
             <span class="contact__key">LinkedIn</span>
             <a href={contact.linkedin} rel="me noopener" target="_blank"
@@ -334,19 +386,61 @@ const year = new Date().getFullYear();
     margin: 0 0 1.1rem;
   }
 
-  /* Proyectos — lista, no tarjetas idénticas */
-  .projects {
+  /* Experiencia */
+  .exp {
     list-style: none;
     margin: 0;
     padding: 0;
   }
 
+  .exp__item {
+    padding: 1.5rem 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .exp__item:first-child {
+    border-top: 0;
+    padding-top: 0;
+  }
+
+  .exp__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.25rem 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .exp__role {
+    font-size: 1.05rem;
+    margin: 0;
+  }
+
+  .exp__org {
+    color: var(--text-dim);
+    font-weight: 400;
+  }
+
+  .exp__dates {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--text-dim);
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+
+  .exp__body {
+    margin: 0;
+    color: var(--text-dim);
+  }
+
+  /* Proyectos — no tarjetas idénticas, separación por línea */
   .project {
     padding: 1.75rem 0;
     border-top: 1px solid var(--border);
   }
 
-  .project:first-child {
+  .project:first-of-type {
     border-top: 0;
     padding-top: 0;
   }
