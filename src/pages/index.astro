@@ -44,9 +44,9 @@ type Link = { label: string; href: string };
 const rfid = {
   name: "Sistema de control de acceso vehicular RFID",
   org: "FIME · UANL",
-  status: "Software concluido · Integración con hardware pendiente",
+  status: "Software terminado · Falta la instalación en sitio",
   body: "Control de entradas y salidas por tarjeta RFID para un estacionamiento institucional. Levanté los requerimientos, diseñé una arquitectura híbrida offline/online para que siguiera operando sin conexión, y desarrollé todo el software: API REST en .NET, un servicio local (Gateway con .NET Worker Service y SQLite) que sincroniza al recuperar la red, un dashboard de administración en React y la base de datos en SQL Server con diagrama entidad-relación, diccionario de datos y permisos por rol. Documentado con casos de prueba, diagramas de arquitectura y manual funcional.",
-  note: "El desarrollo de software está concluido. La integración con el hardware físico (lector RFID y pluma vehicular) quedó pendiente de despliegue.",
+  note: "El software está terminado, probado y documentado. Falta montarlo en sitio y conectarlo con el hardware: el lector RFID y la pluma vehicular.",
   // Añade el repo (aunque sea privado con README público) y/o el PDF de arquitectura:
   links: [] as Link[],
 };
@@ -171,12 +171,12 @@ const year = new Date().getFullYear();
         </div>
         <div class="project">
           <h3 class="project__name">Imagenología web</h3>
-          <p class="status status--planning">En diseño</p>
+          <p class="status status--planning">En desarrollo</p>
           <p class="project__body">
-            Hacia donde apunto: un visor de estudios DICOM que funcione desde el
-            navegador, sin instalar software propietario, y un flujo ligero para
-            recibir y organizar los estudios de un equipo portátil de rayos X.
-            Diseño en curso, sin implementación todavía.
+            Un visor de estudios DICOM que funcione desde el navegador, sin
+            instalar software propietario, y un flujo ligero para recibir y
+            organizar los estudios de un equipo portátil de rayos X. En etapa
+            temprana.
           </p>
         </div>
       </section>
