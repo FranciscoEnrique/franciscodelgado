@@ -1,0 +1,479 @@
+---
+// franciscodelgado.dev — landing de una sola página.
+// Contenido y enlaces editables desde estas constantes.
+
+const contact = {
+  email: "enriquedelgadoelizondo@gmail.com",
+  // Cambia por tu perfil real:
+  linkedin: "https://www.linkedin.com/in/francisco-delgado",
+  // Coloca el archivo en public/ con este nombre (o ajusta la ruta):
+  cv: "/cv-francisco-delgado.pdf",
+};
+
+type Link = { label: string; href: string };
+type Project = {
+  name: string;
+  org?: string;
+  status: string;
+  state: "done" | "planning";
+  body: string;
+  note?: string;
+  links?: Link[];
+};
+
+const projects: Project[] = [
+  {
+    name: "Sistema de control de acceso vehicular RFID",
+    org: "FIME · UANL",
+    status: "Software terminado · Despliegue pendiente",
+    state: "done",
+    body: "Control de entradas y salidas de vehículos por tarjeta RFID para un estacionamiento universitario. Diseñé y desarrollé el software completo: API en .NET, un gateway offline en SQLite que sincroniza al recuperar conexión, dashboard en React y base de datos en SQL Server con su diagrama entidad-relación.",
+    note: "El desarrollo de software está terminado. La instalación física y la integración con los lectores RFID quedan pendientes.",
+    // Añade el repo (aunque sea privado con README público) y/o el PDF de arquitectura:
+    links: [],
+  },
+  {
+    name: "Visor web DICOM",
+    status: "En planeación",
+    state: "planning",
+    body: "Ver estudios DICOM desde el navegador, sin instalar un visor propietario en cada máquina. Pensado para consultar de forma rápida las imágenes de un equipo portátil de rayos X.",
+  },
+  {
+    name: "Flujo mini-PACS",
+    status: "En planeación",
+    state: "planning",
+    body: "Recepción y organización de los estudios que produce un equipo portátil de rayos X: nombrarlos, agruparlos por paciente y dejarlos listos para revisión.",
+  },
+];
+
+const stack = {
+  desarrollo: ["C#", ".NET", "SQL Server", "React", "JavaScript", "Git"],
+  salud: ["HIS", "RIS", "LIS", "PACS", "DICOM", "HL7"],
+};
+
+const year = new Date().getFullYear();
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>Francisco Delgado — Desarrollo de software · Health IT</title>
+    <meta
+      name="description"
+      content="Francisco Delgado: desarrollador de software (.NET/C#/SQL Server) con formación clínica en radiología. Enfoque en Health IT e imagenología médica."
+    />
+    <link rel="canonical" href="https://franciscodelgado.dev/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Francisco Delgado — Desarrollo de software · Health IT" />
+    <meta
+      property="og:description"
+      content="Desarrollador de software con formación clínica en radiología. Enfoque en Health IT e imagenología médica."
+    />
+    <meta property="og:url" content="https://franciscodelgado.dev/" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <main>
+      <header class="hero">
+        <p class="hero__meta">Monterrey, Nuevo León</p>
+        <h1>Francisco Delgado</h1>
+        <p class="hero__lede">
+          Desarrollador de software con formación clínica en radiología.
+        </p>
+        <p class="hero__body">
+          Construyo software para el flujo de imagenología médica: visores DICOM
+          en el navegador, integraciones tipo mini-PACS y herramientas para
+          equipo portátil de rayos X. Busco un rol en Health IT donde el
+          desarrollo y la práctica clínica se crucen.
+        </p>
+      </header>
+
+      <section aria-labelledby="sobre-mi">
+        <h2 id="sobre-mi">Sobre mí</h2>
+        <p>
+          Soy ingeniero en Tecnología de Software por la FIME-UANL. He trabajado
+          en desarrollo .NET/C# y SQL Server en entornos empresariales: sistemas
+          internos en Panasonic Energy México y en la Fiscalía General de
+          Justicia de Nuevo León.
+        </p>
+        <p>
+          Antes de programar trabajé en un hospital. Tengo formación técnica en
+          radiología y experiencia de piso: rayos X, apoyo en mamografía y
+          ultrasonido. Conozco el recorrido de un estudio desde que el paciente
+          entra hasta que la imagen llega al radiólogo.
+        </p>
+        <p>
+          Health IT es donde esas dos cosas dejan de estar separadas. Me
+          interesan los sistemas de información clínica y, en concreto, la
+          imagenología: cómo se capturan, se mueven y se leen los estudios. No es
+          un área nueva que estoy explorando; es el trabajo que ya hacía, visto
+          desde el otro lado.
+        </p>
+      </section>
+
+      <section aria-labelledby="proyectos">
+        <h2 id="proyectos">Proyectos</h2>
+        <ol class="projects">
+          {
+            projects.map((p) => (
+              <li class="project">
+                <h3 class="project__name">
+                  {p.name}
+                  {p.org && <span class="project__org"> — {p.org}</span>}
+                </h3>
+                <p class={`status status--${p.state}`}>{p.status}</p>
+                <p class="project__body">{p.body}</p>
+                {p.note && <p class="project__note">{p.note}</p>}
+                {p.links && p.links.length > 0 && (
+                  <p class="project__links">
+                    {p.links.map((l) => (
+                      <a href={l.href}>{l.label}</a>
+                    ))}
+                  </p>
+                )}
+              </li>
+            ))
+          }
+        </ol>
+      </section>
+
+      <section aria-labelledby="stack">
+        <h2 id="stack">Stack</h2>
+        <div class="stack">
+          <p class="stack__label">Desarrollo</p>
+          <ul class="tags">
+            {stack.desarrollo.map((t) => <li>{t}</li>)}
+          </ul>
+        </div>
+        <div class="stack">
+          <p class="stack__label">Sistemas de información en salud</p>
+          <ul class="tags">
+            {stack.salud.map((t) => <li>{t}</li>)}
+          </ul>
+          <p class="stack__caveat">
+            Conocimiento de fundamentos. Todavía no implementación en producción.
+          </p>
+        </div>
+      </section>
+
+      <section aria-labelledby="contacto">
+        <h2 id="contacto">Contacto</h2>
+        <ul class="contact">
+          <li>
+            <span class="contact__key">Email</span>
+            <a href={`mailto:${contact.email}`}>{contact.email}</a>
+          </li>
+          <li>
+            <span class="contact__key">LinkedIn</span>
+            <a href={contact.linkedin} rel="me noopener" target="_blank"
+              >{contact.linkedin.replace("https://www.", "")}</a
+            >
+          </li>
+          <li>
+            <span class="contact__key">CV</span>
+            <a href={contact.cv}>Descargar PDF</a>
+          </li>
+        </ul>
+      </section>
+
+      <footer>
+        <p>Monterrey, Nuevo León · {year}</p>
+      </footer>
+    </main>
+  </body>
+</html>
+
+<style>
+  :root {
+    --bg: #0b0f14;
+    --surface: #1c232b;
+    --border: #2a333d;
+    --text: #e8ecef;
+    --text-dim: #9aa6af;
+    --accent: #7fb3a8;
+    --amber: #cc9a4a;
+
+    --measure: 62ch;
+    --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, -apple-system,
+      "Segoe UI", Roboto, sans-serif;
+    --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", "Menlo", "Consolas",
+      monospace;
+  }
+
+  :global(*),
+  :global(*::before),
+  :global(*::after) {
+    box-sizing: border-box;
+  }
+
+  :global(html) {
+    background: var(--bg);
+    -webkit-text-size-adjust: 100%;
+  }
+
+  :global(body) {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-sans);
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-wrap: break-word;
+  }
+
+  main {
+    max-width: 46rem;
+    margin: 0 auto;
+    padding: clamp(2.5rem, 6vw, 5.5rem) clamp(1.25rem, 5vw, 3rem) 4rem;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+
+  p {
+    max-width: var(--measure);
+  }
+
+  a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
+    padding-bottom: 1px;
+  }
+
+  a:hover {
+    border-bottom-color: var(--accent);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 1px;
+  }
+
+  /* Hero — el único elemento con protagonismo visual */
+  .hero {
+    margin-bottom: 4.5rem;
+  }
+
+  .hero__meta {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    margin: 0 0 1.25rem;
+    letter-spacing: 0.02em;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.2rem, 7vw, 3.4rem);
+    margin: 0 0 1.25rem;
+  }
+
+  .hero__lede {
+    font-size: clamp(1.15rem, 3vw, 1.4rem);
+    color: var(--text);
+    margin: 0 0 1.5rem;
+    max-width: 34ch;
+  }
+
+  .hero__body {
+    color: var(--text-dim);
+    margin: 0;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .hero > * {
+      animation: rise 0.6s cubic-bezier(0.2, 0.6, 0.2, 1) both;
+    }
+    .hero h1 {
+      animation-delay: 0.05s;
+    }
+    .hero__lede {
+      animation-delay: 0.1s;
+    }
+    .hero__body {
+      animation-delay: 0.15s;
+    }
+    @keyframes rise {
+      from {
+        opacity: 0;
+        transform: translateY(0.5rem);
+      }
+    }
+  }
+
+  section {
+    margin-bottom: 4rem;
+  }
+
+  h2 {
+    font-size: 1.05rem;
+    color: var(--text-dim);
+    margin: 0 0 1.75rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  section > p {
+    color: var(--text-dim);
+    margin: 0 0 1.1rem;
+  }
+
+  /* Proyectos — lista, no tarjetas idénticas */
+  .projects {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .project {
+    padding: 1.75rem 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .project:first-child {
+    border-top: 0;
+    padding-top: 0;
+  }
+
+  .project__name {
+    font-size: 1.15rem;
+    margin: 0 0 0.6rem;
+  }
+
+  .project__org {
+    color: var(--text-dim);
+    font-weight: 400;
+  }
+
+  .status {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.02em;
+    margin: 0 0 0.9rem;
+  }
+
+  .status--done {
+    color: var(--accent);
+  }
+
+  .status--planning {
+    color: var(--amber);
+  }
+
+  .project__body {
+    margin: 0;
+    color: var(--text);
+  }
+
+  .project__note {
+    margin: 0.9rem 0 0;
+    padding-left: 0.9rem;
+    border-left: 2px solid var(--border);
+    color: var(--text-dim);
+    font-size: 0.95rem;
+  }
+
+  .project__links {
+    margin: 1rem 0 0;
+    display: flex;
+    gap: 1.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+  }
+
+  /* Stack */
+  .stack {
+    margin-bottom: 1.75rem;
+  }
+
+  .stack__label {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    margin: 0 0 0.75rem;
+    letter-spacing: 0.02em;
+  }
+
+  .tags {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.25rem;
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+  }
+
+  .stack__caveat {
+    margin: 0.9rem 0 0;
+    font-size: 0.9rem;
+    color: var(--text-dim);
+  }
+
+  /* Contacto */
+  .contact {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .contact li {
+    display: flex;
+    gap: 1.25rem;
+    padding: 0.7rem 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .contact li:first-child {
+    border-top: 0;
+  }
+
+  .contact__key {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    flex: 0 0 5.5rem;
+    padding-top: 0.15rem;
+  }
+
+  .contact a {
+    overflow-wrap: anywhere;
+  }
+
+  footer {
+    margin-top: 5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--text-dim);
+  }
+
+  footer p {
+    margin: 0;
+  }
+
+  @media (max-width: 30rem) {
+    .contact li {
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+  }
+</style>
