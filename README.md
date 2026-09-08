@@ -1,7 +1,8 @@
 # franciscodelgado.dev
 
 Landing personal de una sola página. Sitio estático generado con [Astro](https://astro.build/),
-sin backend ni base de datos. La dirección de contenido y diseño está en [`BRIEF.md`](BRIEF.md).
+sin backend ni base de datos. Se despliega en **Cloudflare Pages**. La dirección de
+contenido y diseño está en [`BRIEF.md`](BRIEF.md).
 
 ## Desarrollo
 
@@ -31,18 +32,32 @@ en el bloque `<style>` al final.
   ]
   ```
 
-## Despliegue — GitHub Pages
+## Despliegue — Cloudflare Pages
 
-1. Crear un repositorio en GitHub y subir este proyecto.
-2. En el repo: **Settings → Pages → Build and deployment → Source: GitHub Actions**.
-3. El workflow [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) construye
-   y publica en cada push a `main`.
-4. El dominio personalizado se sirve vía [`public/CNAME`](public/CNAME)
-   (`franciscodelgado.dev`), que Astro copia a `dist/`.
-5. En el proveedor del dominio, apuntar el DNS a GitHub Pages:
-   - `A` → `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`
-   - o `CNAME` de `www` → `<usuario>.github.io`
-6. GitHub emite el certificado HTTPS automáticamente (unos minutos tras verificar el DNS).
+El dominio `franciscodelgado.dev` usa los nameservers de Cloudflare, así que Pages
+gestiona DNS y certificado automáticamente.
 
-Alternativa: conectar el repo a **Cloudflare Pages** (build command `npm run build`,
-output `dist`) y configurar el dominio en su panel.
+**Proyecto (una vez):**
+
+1. Cloudflare → **Workers & Pages → Create → Pages → Connect to Git** → repo
+   `FranciscoEnrique/franciscodelgado`.
+2. Build command: `npm run build` · Output directory: `dist`.
+   Versión de Node vía [`.nvmrc`](.nvmrc) (`22`).
+3. Deploy. Cada push a `main` republica.
+
+**Dominio:**
+
+4. En el proyecto de Pages → **Custom domains → Set up a domain** →
+   `franciscodelgado.dev` (y opcionalmente `www.franciscodelgado.dev`).
+5. Como el dominio está en Cloudflare, se crean los registros y el certificado
+   solos, en ~1 min.
+
+Alternativa sin Git (subida directa):
+
+```sh
+npm run build
+npx wrangler pages deploy dist --project-name franciscodelgado
+```
+
+> El certificado del `.dev` es obligatorio: los navegadores fuerzan HTTPS (HSTS
+> preload) y no dejan entrar sin él. Cloudflare lo emite al instante.
